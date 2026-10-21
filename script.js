@@ -78,7 +78,6 @@ const questionsData = [
     { text: "Отдаёте ли вы предпочтение товарам из переработанного сырья?", options: [{t:"Да", v:0}, {t:"Иногда", v:5}, {t:"Нет, это неважно", v:10}], category: "nature" }
 ];
 
-// ===== 20 Советов по категориям =====
 const advicesData = {
     water: [
         "Начните с 5-минутного душа. Это экономит до 100 литров воды за раз.",
@@ -118,7 +117,6 @@ const advicesData = {
     ]
 };
 
-// ===== 15 Фактов для финала =====
 const endFacts = [
     "Если бы каждый житель Земли жил так, как люди с низким углеродным следом, глобальные выбросы CO₂ сократились бы на треть уже к 2030 году.",
     "Сортировка мусора одной семьёй за год экономит столько энергии, сколько нужно для зарядки телефона в течение 3 лет.",
@@ -136,6 +134,7 @@ const endFacts = [
     "Если все люди выключат свет на 1 час, это сэкономит энергию, достаточную для работы небольшого города в течение дня.",
     "Только 9% всего произведённого пластика было переработано за всю историю человечества."
 ];
+
 // ===== Логика приложения =====
 let currentQuestion = 0;
 let userAnswers = {};
@@ -212,13 +211,11 @@ function prevQuestion() {
 function calculate() {
     let totalPoints = 0;
     let categoryScores = { water: 0, transport: 0, energy: 0, waste: 0, food: 0, nature: 0 };
-    let answeredCount = 0;
 
     for (let key in userAnswers) {
         const ans = userAnswers[key];
         totalPoints += ans.points;
         categoryScores[ans.category] += ans.points;
-        answeredCount++;
     }
 
     const maxPoints = 350;
