@@ -38,28 +38,21 @@ function startFactRotation() {
 
 // ===== 35 Вопросов =====
 const questionsData = [
-    // Вода
     { text: "Как часто вы принимаете ванну?", options: [{t:"Каждый день", v:10}, {t:"Пару раз в неделю", v:5}, {t:"Редко", v:0}], category: "water" },
     { text: "Сколько минут вы обычно стоите в душе?", options: [{t:"Больше 15 минут", v:10}, {t:"Около 10 минут", v:5}, {t:"5 минут или меньше", v:0}], category: "water" },
     { text: "Выключаете ли вы кран, пока чистите зубы?", options: [{t:"Всегда", v:0}, {t:"Иногда", v:5}, {t:"Никогда", v:10}], category: "water" },
     { text: "Есть ли у вас дома фильтр для воды?", options: [{t:"Да, есть", v:0}, {t:"Планирую купить", v:5}, {t:"Нет, покупаю бутилированную", v:10}], category: "water" },
     { text: "Как вы моете посуду?", options: [{t:"В посудомоечной машине", v:0}, {t:"Вручную, закрывая кран", v:5}, {t:"Вручную, с открытым краном", v:10}], category: "water" },
-    
-    // Транспорт
     { text: "Как вы добираетесь до работы/учебы?", options: [{t:"На личной машине", v:10}, {t:"На общественном транспорте", v:5}, {t:"Пешком или на велосипеде", v:0}], category: "transport" },
     { text: "Как часто вы летаете на самолёте?", options: [{t:"Несколько раз в год", v:10}, {t:"Раз в год", v:5}, {t:"Почти никогда", v:0}], category: "transport" },
     { text: "Используете ли вы каршеринг вместо личного авто?", options: [{t:"Да, часто", v:0}, {t:"Иногда", v:5}, {t:"У меня нет авто", v:0}], category: "transport" },
     { text: "Выбираете ли вы поезд вместо самолёта на средние расстояния?", options: [{t:"Всегда, если есть возможность", v:0}, {t:"Иногда", v:5}, {t:"Нет, самолет быстрее", v:10}], category: "transport" },
     { text: "Прогреваете ли вы машину зимой на стоянке?", options: [{t:"Больше 10 минут", v:10}, {t:"Около 5 минут", v:5}, {t:"Не прогреваю или нет машины", v:0}], category: "transport" },
-
-    // Электричество и энергия
     { text: "Выключаете ли вы свет, выходя из комнаты?", options: [{t:"Всегда", v:0}, {t:"Иногда забываю", v:5}, {t:"Часто оставляю включённым", v:10}], category: "energy" },
     { text: "Используете ли вы энергосберегающие лампы?", options: [{t:"Да, везде", v:0}, {t:"Только в некоторых комнатах", v:5}, {t:"Нет, обычные лампы", v:10}], category: "energy" },
     { text: "Выключаете ли вы технику из розетки на ночь?", options: [{t:"Всегда", v:0}, {t:"Иногда", v:5}, {t:"Никогда, оставляю в режиме ожидания", v:10}], category: "energy" },
     { text: "Утеплены ли у вас окна на зиму?", options: [{t:"Да, современные стеклопакеты", v:0}, {t:"Старые окна, но утепляю", v:5}, {t:"Нет, дует", v:10}], category: "energy" },
     { text: "Насколько часто вы стираете при 60°C и выше?", options: [{t:"Редко, в основном при 30-40°C", v:0}, {t:"Иногда", v:5}, {t:"Всегда стираю в горячей воде", v:10}], category: "energy" },
-
-    // Отходы и пластик
     { text: "Сортируете ли вы мусор?", options: [{t:"Да, всегда", v:0}, {t:"Иногда", v:5}, {t:"Нет", v:10}], category: "waste" },
     { text: "Сколько пластиковых пакетов вы берёте в магазине?", options: [{t:"Каждый раз новый", v:10}, {t:"Иногда забываю свою сумку", v:5}, {t:"Всегда со своей сумкой", v:0}], category: "waste" },
     { text: "Как часто вы покупаете воду в пластиковых бутылках?", options: [{t:"Каждый день", v:10}, {t:"Пару раз в неделю", v:5}, {t:"Почти никогда, ношу с собой", v:0}], category: "waste" },
@@ -71,15 +64,11 @@ const questionsData = [
     { text: "Используете ли вы многоразовую бутылку для воды?", options: [{t:"Да, всегда", v:0}, {t:"Иногда", v:5}, {t:"Нет, покупаю пластиковые", v:10}], category: "waste" },
     { text: "Сдаёте ли вы макулатуру?", options: [{t:"Да, регулярно", v:0}, {t:"Иногда", v:5}, {t:"Нет", v:10}], category: "waste" },
     { text: "Покупаете ли вы продукты на развес (без упаковки)?", options: [{t:"Да, где возможно", v:0}, {t:"Иногда", v:5}, {t:"Нет, только упакованные", v:10}], category: "waste" },
-
-    // Еда
     { text: "Как часто вы едите мясо?", options: [{t:"Каждый день", v:10}, {t:"Несколько раз в неделю", v:5}, {t:"Редко или никогда", v:0}], category: "food" },
     { text: "Покупаете ли вы местные продукты?", options: [{t:"Стараюсь всегда", v:0}, {t:"Иногда", v:5}, {t:"Редко, беру что дешевле", v:10}], category: "food" },
     { text: "Выбрасываете ли вы еду (просрочка, недоеденное)?", options: [{t:"Часто", v:10}, {t:"Иногда", v:5}, {t:"Почти никогда", v:0}], category: "food" },
     { text: "Выращиваете ли вы что-то сами (зелень, овощи)?", options: [{t:"Да, на даче или подоконнике", v:0}, {t:"Планирую", v:5}, {t:"Нет", v:10}], category: "food" },
     { text: "Как часто вы пьёте кофе в одноразовых стаканчиках?", options: [{t:"Каждый день", v:10}, {t:"Пару раз в неделю", v:5}, {t:"Никогда, беру свою кружку", v:0}], category: "food" },
-
-    // Природа и прочее
     { text: "Есть ли у вас дома живые растения?", options: [{t:"Да, много", v:0}, {t:"Несколько", v:5}, {t:"Нет", v:10}], category: "nature" },
     { text: "Участвуете ли вы в субботниках или эко-акциях?", options: [{t:"Да, регулярно", v:0}, {t:"Иногда", v:5}, {t:"Никогда", v:10}], category: "nature" },
     { text: "Используете ли вы бумагу с двух сторон при печати?", options: [{t:"Всегда", v:0}, {t:"Иногда", v:5}, {t:"Никогда, печатаю на одной", v:10}], category: "nature" },
@@ -147,7 +136,6 @@ const endFacts = [
     "Если все люди выключат свет на 1 час, это сэкономит энергию, достаточную для работы небольшого города в течение дня.",
     "Только 9% всего произведённого пластика было переработано за всю историю человечества."
 ];
-
 // ===== Логика приложения =====
 let currentQuestion = 0;
 let userAnswers = {};
@@ -181,4 +169,107 @@ function renderQuestion() {
         btn.className = 'option-btn';
         btn.innerText = opt.t;
         
-        if (userAnswers[currentQuestion] &&
+        if (userAnswers[currentQuestion] && userAnswers[currentQuestion].index === index) {
+            btn.classList.add('selected');
+        }
+        
+        btn.onclick = () => selectAnswer(opt.v, index, q.category);
+        optionsDiv.appendChild(btn);
+    });
+    
+    qDiv.appendChild(optionsDiv);
+    container.appendChild(qDiv);
+    
+    const progressPercent = ((currentQuestion + 1) / questionsData.length) * 100;
+    document.getElementById('progressBar').style.width = progressPercent + '%';
+    document.getElementById('backBtn').style.display = currentQuestion > 0 ? 'block' : 'none';
+}
+
+function selectAnswer(points, optionIndex, category) {
+    userAnswers[currentQuestion] = {
+        points: points,
+        category: category,
+        index: optionIndex
+    };
+    
+    setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < questionsData.length) {
+            renderQuestion();
+        } else {
+            calculate();
+        }
+    }, 250);
+}
+
+function prevQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+    }
+}
+
+function calculate() {
+    let totalPoints = 0;
+    let categoryScores = { water: 0, transport: 0, energy: 0, waste: 0, food: 0, nature: 0 };
+    let answeredCount = 0;
+
+    for (let key in userAnswers) {
+        const ans = userAnswers[key];
+        totalPoints += ans.points;
+        categoryScores[ans.category] += ans.points;
+        answeredCount++;
+    }
+
+    const maxPoints = 350;
+    document.getElementById('testScreen').style.display = 'none';
+    document.getElementById('resultBlock').style.display = 'block';
+
+    document.getElementById('result').innerText = "Вы набрали " + totalPoints + " из " + maxPoints + " баллов";
+
+    let percent = Math.min((totalPoints / maxPoints) * 100, 100);
+    document.getElementById('scaleFill').style.width = percent + '%';
+
+    let explanation;
+    if (totalPoints <= 100) {
+        explanation = "У вас низкий экологический след. Вы уже отлично заботитесь о планете, и ваши привычки можно назвать примером для подражания. Продолжайте в том же духе!";
+    } else if (totalPoints <= 220) {
+        explanation = "У вас средний экологический след. Вы делаете много правильных вещей, но есть зоны, где можно улучшить результат без серьёзных усилий. Вот что стоит подтянуть в первую очередь:";
+    } else {
+        explanation = "У вас высокий экологический след. Не пугайтесь — даже несколько простых изменений в повседневной жизни могут дать огромный результат. Начните с этих советов:";
+    }
+    document.getElementById('scoreExplanation').innerText = explanation;
+
+    let sortedCategories = Object.keys(categoryScores).sort((a, b) => categoryScores[b] - categoryScores[a]);
+    let selectedAdvices = [];
+    
+    for (let i = 0; i < 3; i++) {
+        let cat = sortedCategories[i];
+        let catAdvices = advicesData[cat];
+        let randomAdvice = catAdvices[Math.floor(Math.random() * catAdvices.length)];
+        selectedAdvices.push(randomAdvice);
+    }
+
+    let adviceHTML = "";
+    selectedAdvices.forEach(function(text, index) {
+        adviceHTML += "<p><strong>Совет " + (index + 1) + ":</strong> " + text + "</p>";
+    });
+    document.getElementById('advice').innerHTML = adviceHTML;
+
+    let randomFact = endFacts[Math.floor(Math.random() * endFacts.length)];
+    document.getElementById('fact').innerText = "💡 " + randomFact;
+}
+
+function restart() {
+    document.getElementById('resultBlock').style.display = 'none';
+    document.getElementById('testScreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'block';
+    
+    currentQuestion = 0;
+    userAnswers = {};
+    startFactRotation();
+}
+
+window.onload = function() {
+    startFactRotation();
+};
