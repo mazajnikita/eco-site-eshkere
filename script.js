@@ -37,7 +37,6 @@ function startFactRotation() {
 }
 
 // ===== 35 Вопросов =====
-// Формат: текст, варианты ответов (текст + баллы), категория (для выбора советов)
 const questionsData = [
     // Вода
     { text: "Как часто вы принимаете ванну?", options: [{t:"Каждый день", v:10}, {t:"Пару раз в неделю", v:5}, {t:"Редко", v:0}], category: "water" },
@@ -142,4 +141,44 @@ const endFacts = [
     "Если выключить свет в комнате на 1 час, экономится столько энергии, сколько нужно, чтобы вскипятить 5 литров воды.",
     "Старые мобильные телефоны содержат золото, медь и серебро — если их не перерабатывать, эти ресурсы теряются навсегда.",
     "Дерево, посаженное сегодня, через 10 лет будет поглощать около 22 кг CO₂ в год.",
-    "Один бассейн олимпийского размера — это примерно 2,5 миллиона литров воды. Столько экономит семья за 3 года, если выключает кран при мы
+    "Один бассейн олимпийского размера — это примерно 2,5 миллиона литров воды. Столько экономит семья за 3 года, если выключает кран при чистке зубов.",
+    "Бумажный пакет разлагается около 1 месяца, а пластиковый — до 400 лет.",
+    "Производство одной говяжьей котлеты требует столько воды, сколько нужно для 25 ванн.",
+    "Если все люди выключат свет на 1 час, это сэкономит энергию, достаточную для работы небольшого города в течение дня.",
+    "Только 9% всего произведённого пластика было переработано за всю историю человечества."
+];
+
+// ===== Логика приложения =====
+let currentQuestion = 0;
+let userAnswers = {};
+
+function startTest() {
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('testScreen').style.display = 'block';
+    clearInterval(factInterval);
+    currentQuestion = 0;
+    userAnswers = {};
+    renderQuestion();
+}
+
+function renderQuestion() {
+    const container = document.getElementById('questionsContainer');
+    container.innerHTML = '';
+    
+    const q = questionsData[currentQuestion];
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question';
+    
+    const p = document.createElement('p');
+    p.innerText = (currentQuestion + 1) + ". " + q.text;
+    qDiv.appendChild(p);
+    
+    const optionsDiv = document.createElement('div');
+    optionsDiv.className = 'options';
+    
+    q.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt.t;
+        
+        if (userAnswers[currentQuestion] &&
