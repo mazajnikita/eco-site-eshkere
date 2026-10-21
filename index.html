@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Эко-калькулятор — узнайте свой след</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== ГЛАВНАЯ СТРАНИЦА ===== -->
+        <div id="startScreen">
+            <h1>Калькулятор экопривычек</h1>
+            <p class="subtitle">Узнайте свой экологический след за 2 минуты</p>
+            <p class="description">
+                Ответьте на 20 простых вопросов о ваших ежедневных привычках — и получите персональный рейтинг,
+                три практических совета и неожиданный факт о том, как ваши действия влияют на планету.
+            </p>
+
+            <button class="action-btn" onclick="startTest()">Начать тест</button>
+
+            <!-- Лента фактов -->
+            <div class="fact-ticker" id="factTicker">
+                <div class="fact-item">🌍 Один пластиковый пакет разлагается до 400 лет, а используется в среднем 12 минут.</div>
+                <div class="fact-item">💡 Если выключать свет, выходя из комнаты, за год можно сэкономить до 15% электроэнергии.</div>
+                <div class="fact-item">🚲 Поездка на велосипеде вместо машины на 5 км экономит около 0,5 кг CO₂.</div>
+                <div class="fact-item">🍖 На производство 1 кг говядины уходит около 15 000 литров воды.</div>
+            </div>
+        </div>
+
+        <!-- ===== ТЕСТ ===== -->
+        <div id="testScreen" style="display:none;">
+            <h1>Калькулятор экопривычек</h1>
+            <div class="progress">
+                <div class="progress-bar" id="progressBar" style="width:5%;"></div>
+            </div>
+
+            <!-- Вопрос 1 -->
+            <div class="question" id="q1">
+                <p>1. Как часто вы принимаете ванну?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(1, 10, this)">Каждый день</button>
+                    <button class="option-btn" onclick="answer(1, 5, this)">Пару раз в неделю</button>
+                    <button class="option-btn" onclick="answer(1, 0, this)">Редко</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 2 -->
+            <div class="question" id="q2" style="display:none;">
+                <p>2. Как вы добираетесь до работы?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(2, 10, this)">На машине</button>
+                    <button class="option-btn" onclick="answer(2, 5, this)">На общественном транспорте</button>
+                    <button class="option-btn" onclick="answer(2, 0, this)">Пешком или на велосипеде</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 3 -->
+            <div class="question" id="q3" style="display:none;">
+                <p>3. Сортируете ли вы мусор?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(3, 0, this)">Да, всегда</button>
+                    <button class="option-btn" onclick="answer(3, 5, this)">Иногда</button>
+                    <button class="option-btn" onclick="answer(3, 10, this)">Нет</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 4 -->
+            <div class="question" id="q4" style="display:none;">
+                <p>4. Сколько пластиковых пакетов вы берёте в магазине?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(4, 10, this)">Каждый раз новый</button>
+                    <button class="option-btn" onclick="answer(4, 5, this)">Иногда забываю свою сумку</button>
+                    <button class="option-btn" onclick="answer(4, 0, this)">Всегда со своей сумкой</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 5 -->
+            <div class="question" id="q5" style="display:none;">
+                <p>5. Как часто вы покупаете воду в пластиковых бутылках?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(5, 10, this)">Каждый день</button>
+                    <button class="option-btn" onclick="answer(5, 5, this)">Пару раз в неделю</button>
+                    <button class="option-btn" onclick="answer(5, 0, this)">Почти никогда, ношу с собой</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 6 -->
+            <div class="question" id="q6" style="display:none;">
+                <p>6. Выключаете ли вы свет, выходя из комнаты?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(6, 0, this)">Всегда</button>
+                    <button class="option-btn" onclick="answer(6, 5, this)">Иногда забываю</button>
+                    <button class="option-btn" onclick="answer(6, 10, this)">Часто оставляю включённым</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 7 -->
+            <div class="question" id="q7" style="display:none;">
+                <p>7. Как часто вы едите мясо?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(7, 10, this)">Каждый день</button>
+                    <button class="option-btn" onclick="answer(7, 5, this)">Несколько раз в неделю</button>
+                    <button class="option-btn" onclick="answer(7, 0, this)">Редко или никогда</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 8 -->
+            <div class="question" id="q8" style="display:none;">
+                <p>8. Покупаете ли вы вещи импульсивно на распродажах?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(8, 10, this)">Часто</button>
+                    <button class="option-btn" onclick="answer(8, 5, this)">Иногда</button>
+                    <button class="option-btn" onclick="answer(8, 0, this)">Почти никогда</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 9 -->
+            <div class="question" id="q9" style="display:none;">
+                <p>9. Как часто вы пользуетесь общественным транспортом вместо личного авто?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(9, 0, this)">Каждый день</button>
+                    <button class="option-btn" onclick="answer(9, 5, this)">Несколько раз в неделю</button>
+                    <button class="option-btn" onclick="answer(9, 10, this)">Почти никогда</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 10 -->
+            <div class="question" id="q10" style="display:none;">
+                <p>10. Сдаёте ли вы батарейки в специальные пункты?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(10, 0, this)">Да, всегда</button>
+                    <button class="option-btn" onclick="answer(10, 5, this)">Иногда</button>
+                    <button class="option-btn" onclick="answer(10, 10, this)">Нет, выбрасываю в обычный мусор</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 11 -->
+            <div class="question" id="q11" style="display:none;">
+                <p>11. Используете ли вы энергосберегающие лампы?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(11, 0, this)">Да, везде</button>
+                    <button class="option-btn" onclick="answer(11, 5, this)">Только в некоторых комнатах</button>
+                    <button class="option-btn" onclick="answer(11, 10, this)">Нет, обычные лампы</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 12 -->
+            <div class="question" id="q12" style="display:none;">
+                <p>12. Как долго вы обычно стоите в душе?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(12, 10, this)">Больше 15 минут</button>
+                    <button class="option-btn" onclick="answer(12, 5, this)">Около 10 минут</button>
+                    <button class="option-btn" onclick="answer(12, 0, this)">5 минут или меньше</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 13 -->
+            <div class="question" id="q13" style="display:none;">
+                <p>13. Есть ли у вас дома растения?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(13, 0, this)">Да, много</button>
+                    <button class="option-btn" onclick="answer(13, 5, this)">Несколько</button>
+                    <button class="option-btn" onclick="answer(13, 10, this)">Нет</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 14 -->
+            <div class="question" id="q14" style="display:none;">
+                <p>14. Покупаете ли вы местные продукты?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(14, 0, this)">Стараюсь всегда</button>
+                    <button class="option-btn" onclick="answer(14, 5, this)">Иногда</button>
+                    <button class="option-btn" onclick="answer(14, 10, this)">Редко, беру что дешевле</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 15 -->
+            <div class="question" id="q15" style="display:none;">
+                <p>15. Как часто вы летаете на самолёте?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(15, 10, this)">Несколько раз в год</button>
+                    <button class="option-btn" onclick="answer(15, 5, this)">Раз в год</button>
+                    <button class="option-btn" onclick="answer(15, 0, this)">Почти никогда</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 16 -->
+            <div class="question" id="q16" style="display:none;">
+                <p>16. Сдаёте ли вы старую одежду в переработку или благотворительность?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(16, 0, this)">Да, регулярно</button>
+                    <button class="option-btn" onclick="answer(16, 5, this)">Иногда</button>
+                    <button class="option-btn" onclick="answer(16, 10, this)">Выбрасываю в мусор</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 17 -->
+            <div class="question" id="q17" style="display:none;">
+                <p>17. Используете ли вы многоразовую бутылку для воды?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(17, 0, this)">Да, всегда</button>
+                    <button class="option-btn" onclick="answer(17, 5, this)">Иногда</button>
+                    <button class="option-btn" onclick="answer(17, 10, this)">Нет, покупаю пластиковые</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 18 -->
+            <div class="question" id="q18" style="display:none;">
+                <p>18. Как часто вы пользуетесь доставкой еды в пластиковой упаковке?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(18, 10, this)">Почти каждый день</button>
+                    <button class="option-btn" onclick="answer(18, 5, this)">Пару раз в неделю</button>
+                    <button class="option-btn" onclick="answer(18, 0, this)">Редко или никогда</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 19 -->
+            <div class="question" id="q19" style="display:none;">
+                <p>19. Есть ли у вас дома фильтр для воды вместо покупной?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(19, 0, this)">Да, есть</button>
+                    <button class="option-btn" onclick="answer(19, 5, this)">Планирую купить</button>
+                    <button class="option-btn" onclick="answer(19, 10, this)">Нет, покупаю бутилированную</button>
+                </div>
+            </div>
+
+            <!-- Вопрос 20 -->
+            <div class="question" id="q20" style="display:none;">
+                <p>20. Участвуете ли вы в субботниках или эко-акциях?</p>
+                <div class="options">
+                    <button class="option-btn" onclick="answer(20, 0, this)">Да, регулярно</button>
+                    <button class="option-btn" onclick="answer(20, 5, this)">Иногда</button>
+                    <button class="option-btn" onclick="answer(20, 10, this)">Никогда</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== РЕЗУЛЬТАТ ===== -->
+        <div id="resultBlock" style="display:none;">
+            <h1>Калькулятор экопривычек</h1>
+            <div class="progress">
+                <div class="progress-bar" style="width:100%;"></div>
+            </div>
+            <h2 id="result"></h2>
+
+            <!-- Шкала -->
+            <div class="scale">
+                <div class="scale-track">
+                    <div class="scale-fill" id="scaleFill"></div>
+                </div>
+                <div class="scale-labels">
+                    <span>0 — отлично</span>
+                    <span>120 — плохо</span>
+                </div>
+            </div>
+
+            <!-- Пояснение к баллам -->
+            <p id="scoreExplanation"></p>
+
+            <div id="advice"></div>
+            <p id="fact"></p>
+            <button class="action-btn" onclick="restart()">Пройти заново</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
