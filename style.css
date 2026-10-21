@@ -10,18 +10,76 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%);
+    background: #0f172a; /* Темная основа для фона */
     padding: 20px;
+    overflow-x: hidden;
+    position: relative;
 }
 
+/* ===== Анимированный фон ===== */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background: linear-gradient(135deg, #022c22 0%, #064e3b 100%);
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: float 12s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+    width: 400px;
+    height: 400px;
+    background: #10b981;
+    top: -100px;
+    left: -100px;
+}
+
+.blob-2 {
+    width: 500px;
+    height: 500px;
+    background: #0ea5e9;
+    bottom: -150px;
+    right: -100px;
+    animation-duration: 15s;
+}
+
+.blob-3 {
+    width: 300px;
+    height: 300px;
+    background: #34d399;
+    top: 40%;
+    left: 30%;
+    animation-duration: 10s;
+    opacity: 0.4;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(60px, 40px) scale(1.1); }
+}
+
+/* ===== Контейнер ===== */
 .container {
     width: 100%;
-    max-width: 640px;
-    background: #ffffff;
+    max-width: 680px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     border-radius: 24px;
     padding: 40px 36px;
-    box-shadow: 0 25px 50px -12px rgba(22, 101, 52, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.5s ease;
+    position: relative;
+    z-index: 1;
 }
 
 @keyframes fadeIn {
@@ -78,7 +136,6 @@ h1::after {
     min-height: 70px;
     display: flex;
     align-items: center;
-    animation: fadeIn 0.5s ease;
 }
 
 .fact-item {
@@ -90,25 +147,33 @@ h1::after {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== Прогресс ===== */
+/* ===== Тест ===== */
+.test-header {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 10;
+    padding-bottom: 10px;
+}
+
 .progress {
-    height: 6px;
+    height: 8px;
     background: #e5e7eb;
-    border-radius: 3px;
-    margin-bottom: 28px;
+    border-radius: 4px;
+    margin-bottom: 20px;
     overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
     background: linear-gradient(90deg, #10b981, #34d399);
-    border-radius: 3px;
+    border-radius: 4px;
     transition: width 0.35s ease;
 }
 
-/* ===== Вопросы ===== */
 .question {
     animation: slideIn 0.35s ease;
+    margin-bottom: 20px;
 }
 
 @keyframes slideIn {
@@ -124,7 +189,6 @@ h1::after {
     line-height: 1.5;
 }
 
-/* ===== Кнопки вариантов ответа ===== */
 .options {
     display: flex;
     flex-direction: column;
@@ -152,16 +216,50 @@ h1::after {
     transform: translateX(4px);
 }
 
-.option-btn:active {
-    transform: scale(0.98);
-}
-
 .option-btn.selected {
     border-color: #10b981;
     background: #d1fae5;
 }
 
-/* ===== Кнопка действия ===== */
+/* ===== Управление тестом ===== */
+.test-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.back-btn, .skip-btn {
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.back-btn {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+.back-btn:hover {
+    background: #e5e7eb;
+}
+
+.skip-btn {
+    background: transparent;
+    color: #6b7280;
+    margin-left: auto;
+}
+
+.skip-btn:hover {
+    color: #ef4444;
+}
+
+/* ===== Кнопки действия ===== */
 .action-btn {
     display: block;
     width: 100%;
@@ -185,10 +283,6 @@ h1::after {
     box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5);
 }
 
-.action-btn:active {
-    transform: translateY(0);
-}
-
 /* ===== Результат ===== */
 #resultBlock {
     text-align: center;
@@ -196,31 +290,30 @@ h1::after {
 }
 
 #result {
-    font-size: 26px;
+    font-size: 24px;
     color: #065f46;
     margin-bottom: 16px;
     font-weight: 700;
 }
 
-/* ===== Шкала результата ===== */
 .scale {
     margin: 8px 0 20px;
 }
 
 .scale-track {
     width: 100%;
-    height: 14px;
+    height: 16px;
     background: #e5e7eb;
-    border-radius: 7px;
+    border-radius: 8px;
     overflow: hidden;
 }
 
 .scale-fill {
     height: 100%;
     width: 0%;
-    border-radius: 7px;
+    border-radius: 8px;
     background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444);
-    transition: width 0.8s ease;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .scale-labels {
@@ -228,7 +321,8 @@ h1::after {
     justify-content: space-between;
     font-size: 13px;
     color: #6b7280;
-    margin-top: 6px;
+    margin-top: 8px;
+    font-weight: 600;
 }
 
 #scoreExplanation {
@@ -239,7 +333,7 @@ h1::after {
     border: 1px solid #e5e7eb;
     border-radius: 10px;
     padding: 14px 18px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     text-align: left;
 }
 
@@ -249,7 +343,7 @@ h1::after {
 }
 
 #advice p {
-    font-size: 17px;
+    font-size: 16px;
     color: #374151;
     line-height: 1.6;
     background: #ecfdf5;
@@ -260,7 +354,7 @@ h1::after {
 }
 
 #fact {
-    font-size: 17px;
+    font-size: 16px;
     color: #065f46;
     line-height: 1.6;
     background: #fef3c7;
@@ -269,6 +363,7 @@ h1::after {
     padding: 16px 20px;
     margin-bottom: 24px;
     text-align: left;
+    font-style: italic;
 }
 
 #resultBlock .action-btn {
@@ -280,125 +375,19 @@ h1::after {
 
 #resultBlock .action-btn:hover {
     background: #ecfdf5;
-    color: #047857;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 }
 
-/* ===== Адаптивность для телефонов ===== */
+/* ===== Адаптивность ===== */
 @media (max-width: 480px) {
-    body {
-        padding: 10px;
-        align-items: flex-start;
-        padding-top: 20px;
-    }
-
-    .container {
-        padding: 24px 18px;
-        border-radius: 18px;
-    }
-
-    h1 {
-        font-size: 22px;
-    }
-
-    h1::after {
-        margin: 10px auto 20px;
-    }
-
-    .subtitle {
-        font-size: 18px;
-    }
-
-    .description {
-        font-size: 15px;
-        margin-bottom: 22px;
-    }
-
-    .fact-ticker {
-        font-size: 14px;
-        padding: 14px 16px;
-        min-height: 60px;
-        margin-top: 24px;
-    }
-
-    .question p {
-        font-size: 16px;
-        margin-bottom: 14px;
-    }
-
-    .option-btn {
-        padding: 14px 16px;
-        font-size: 15px;
-        border-radius: 10px;
-    }
-
-    .action-btn {
-        padding: 14px;
-        font-size: 16px;
-        border-radius: 12px;
-    }
-
-    #result {
-        font-size: 20px;
-        margin-bottom: 14px;
-    }
-
-    #scoreExplanation {
-        font-size: 15px;
-        padding: 12px 14px;
-    }
-
-    #advice p {
-        font-size: 15px;
-        padding: 12px 14px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-    }
-
-    #fact {
-        font-size: 15px;
-        padding: 12px 14px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-    }
-
-    .progress {
-        margin-bottom: 22px;
-    }
-}
-
-@media (max-width: 360px) {
-    .container {
-        padding: 18px 14px;
-    }
-
-    h1 {
-        font-size: 20px;
-    }
-
-    .subtitle {
-        font-size: 16px;
-    }
-
-    .description {
-        font-size: 14px;
-    }
-
-    .question p {
-        font-size: 15px;
-    }
-
-    .option-btn {
-        font-size: 14px;
-        padding: 12px 14px;
-    }
-
-    .action-btn {
-        font-size: 15px;
-        padding: 12px;
-    }
-
-    #result {
-        font-size: 18px;
-    }
+    body { padding: 10px; align-items: flex-start; padding-top: 20px; }
+    .container { padding: 24px 18px; border-radius: 18px; }
+    h1 { font-size: 22px; }
+    .subtitle { font-size: 18px; }
+    .description { font-size: 15px; margin-bottom: 22px; }
+    .fact-ticker { font-size: 14px; padding: 14px 16px; min-height: 60px; }
+    .question p { font-size: 16px; margin-bottom: 14px; }
+    .option-btn { padding: 14px 16px; font-size: 15px; border-radius: 10px; }
+    .action-btn { padding: 14px; font-size: 16px; }
+    #result { font-size: 20px; }
+    #advice p, #fact { font-size: 14px; padding: 12px 14px; }
 }
